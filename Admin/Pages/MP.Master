@@ -1,0 +1,104 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MP.master.cs" Inherits="Admin.Pages.MP" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+        <asp:ContentPlaceHolder ID="title" runat="server"></asp:ContentPlaceHolder>
+    </title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header>
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="https://bulma.io">
+                        <img src="https://detqhtv6m6lzl.cloudfront.net/HCLContenido/Home/Delsol-logo-simple.webp" width="112" height="78">
+                    </a>
+
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div  runat="server" id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-start" >
+                        <a class="navbar-item">Inicio
+                        </a>
+
+                        <div runat="server" id="menu" class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">Administración
+                            </a>
+
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item">Usuarios
+                                </a>
+                                <a class="navbar-item">Roles
+                                </a>
+                                <a class="navbar-item">Permisos
+                                </a>
+                                  <asp:Button text="Operaciones" runat="server" CssClass="button is-white" OnClick="Operaciones_Click"/>
+                                    <asp:Button text=" Reportes" runat="server" CssClass="button is-white" OnClick="Reportes_Click"/>
+                            </div>
+                        </div>
+
+                        
+
+                        <%--<div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">Administración
+                            </a>
+
+                            <div class="navbar-dropdown">
+                              
+                               <asp:Button text="Venta Tarjeta Regalo " runat="server" CssClass="button is-white" OnClick="TarjetaRegalo_Click"/>
+                                
+                            </div>
+                        </div>--%>
+
+
+
+                    </div>
+
+                    <div class="navbar-end has-text-centered navbar-brand">
+
+                        <div runat="server" id="divuser" class="navbar-item has-dropdown is-hoverable">
+                            <asp:Label CssClass="navbar-link" runat="server" ID="lblusuario"></asp:Label>
+                            <div class="navbar-dropdown">
+                                <asp:Button text="Salir" runat="server" CssClass="button is-white" OnClick="Unnamed_Click2"/>
+                            </div>
+                        </div>
+
+
+                        <%--<div class="navbar-item" runat="server" id="divbuttons">
+                            <div class="buttons">
+                              
+                               <asp:Button text="Iniciar sesión" runat="server" CssClass="button is-light" OnClick="Unnamed_Click1"/>
+                            </div>
+                        </div>--%>
+
+
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div>
+            <asp:ContentPlaceHolder ID="body" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>CControl</strong>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
