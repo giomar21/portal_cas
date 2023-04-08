@@ -70,13 +70,13 @@ namespace Admin.Pages
         {
             try
             {
-                SqlCommand cmd = new SqlCommand("sp_registraa_historial", con);
+                SqlCommand cmd = new SqlCommand("sp_registra_historial", con);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.Add("@fecha_inicio", System.Data.SqlDbType.VarChar).Value = solicitante.Text;
-                cmd.Parameters.Add("@nombre_solicitante", System.Data.SqlDbType.VarChar).Value = sucursal.Text;
-                cmd.Parameters.Add("@sucursal", System.Data.SqlDbType.Int).Value = ddlCandado.Items[ddlCandado.SelectedIndex].Value; ;
-                cmd.Parameters.Add("@id_candado", System.Data.SqlDbType.VarChar).Value = motivo.Text;
-                cmd.Parameters.Add("@fecha_fin", System.Data.SqlDbType.VarChar).Value = DateTime.Now; //fechaFin.Text;
+                cmd.Parameters.Add("@fecha_inicio", System.Data.SqlDbType.DateTime).Value = DateTime.Now.AddMinutes(-15);
+                cmd.Parameters.Add("@nombre_solicitante", System.Data.SqlDbType.VarChar).Value = solicitante.Text;
+                cmd.Parameters.Add("@sucursal", System.Data.SqlDbType.Int).Value = sucursal.Text;
+                cmd.Parameters.Add("@id_candado", System.Data.SqlDbType.Int).Value = ddlCandado.Items[ddlCandado.SelectedIndex].Value;
+                cmd.Parameters.Add("@fecha_fin", System.Data.SqlDbType.DateTime).Value = DateTime.Now;
                 cmd.Parameters.Add("@motivo", System.Data.SqlDbType.VarChar).Value = motivo.Text;
                 cmd.Parameters.Add("@nombre_cas", System.Data.SqlDbType.VarChar).Value = EAN.Text;
 
