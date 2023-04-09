@@ -17,7 +17,7 @@
         <div class="field">
             <label class="label">Sucursal</label>
             <div class="control">
-                <asp:TextBox runat="server" ID="sucursal" CssClass="input" type="text" placeholder="Sucursal"></asp:TextBox>
+                <asp:TextBox runat="server" ID="sucursal" CssClass="input" type="number" placeholder="Sucursal"></asp:TextBox>
             </div>
         </div>
 

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Database.ConexionDS;
+using Models.DS;
 
 namespace Admin.Pages
 {
@@ -70,19 +72,11 @@ namespace Admin.Pages
         {
             try
             {
-                SqlCommand cmd = new SqlCommand("sp_registra_historial", con);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.Add("@fecha_inicio", System.Data.SqlDbType.DateTime).Value = DateTime.Now.AddMinutes(-15);
-                cmd.Parameters.Add("@nombre_solicitante", System.Data.SqlDbType.VarChar).Value = solicitante.Text;
-                cmd.Parameters.Add("@sucursal", System.Data.SqlDbType.Int).Value = sucursal.Text;
-                cmd.Parameters.Add("@id_candado", System.Data.SqlDbType.Int).Value = ddlCandado.Items[ddlCandado.SelectedIndex].Value;
-                cmd.Parameters.Add("@fecha_fin", System.Data.SqlDbType.DateTime).Value = DateTime.Now;
-                cmd.Parameters.Add("@motivo", System.Data.SqlDbType.VarChar).Value = motivo.Text;
-                cmd.Parameters.Add("@nombre_cas", System.Data.SqlDbType.VarChar).Value = EAN.Text;
+                RepositoryDS repositoryDS = new RepositoryDS(ConfigurationManager.ConnectionStrings);
+                ConexionDS conexionDS = repositoryDS.ObtenerConexionesDSPorSucursal(Convert.ToInt32(sucursal.Text));
 
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
+                RegistrarHistorial();
+               
                 Limpiar();
                 Response.Redirect("CambioPrecio.aspx");
             }
@@ -92,7 +86,6 @@ namespace Admin.Pages
                 throw;
             }
         }
-
 
         protected void llenaCandado()
         {
@@ -163,6 +156,23 @@ namespace Admin.Pages
                 divMonto.Visible = true;
                 divTarjeta.Visible=true;
             }
+        }
+
+        private void RegistrarHistorial()
+        {
+            SqlCommand cmd = new SqlCommand("sp_registra_historial", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.Add("@fecha_inicio", System.Data.SqlDbType.DateTime).Value = DateTime.Now.AddMinutes(-15);
+            cmd.Parameters.Add("@nombre_solicitante", System.Data.SqlDbType.VarChar).Value = solicitante.Text;
+            cmd.Parameters.Add("@sucursal", System.Data.SqlDbType.Int).Value = sucursal.Text;
+            cmd.Parameters.Add("@id_candado", System.Data.SqlDbType.Int).Value = ddlCandado.Items[ddlCandado.SelectedIndex].Value;
+            cmd.Parameters.Add("@fecha_fin", System.Data.SqlDbType.DateTime).Value = DateTime.Now;
+            cmd.Parameters.Add("@motivo", System.Data.SqlDbType.VarChar).Value = motivo.Text;
+            cmd.Parameters.Add("@nombre_cas", System.Data.SqlDbType.VarChar).Value = EAN.Text;
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
         }
     }
 }
