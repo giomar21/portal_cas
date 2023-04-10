@@ -9,6 +9,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Database.ConexionDS;
 using Models.DS;
+using Database.ConexionPosbdat;
+using Models.Constants;
+using Models.Lookup;
 
 namespace Admin.Pages
 {
@@ -76,7 +79,10 @@ namespace Admin.Pages
                 ConexionDS conexionDS = repositoryDS.ObtenerConexionesDSPorSucursal(Convert.ToInt32(sucursal.Text));
 
                 RegistrarHistorial();
-               
+
+                RepositoryPosbdat repositoryPosbdat = new RepositoryPosbdat();
+                repositoryPosbdat.CreateLookUp(conexionDS, ObtenerNombreLookup());
+
                 Limpiar();
                 Response.Redirect("CambioPrecio.aspx");
             }
@@ -173,6 +179,39 @@ namespace Admin.Pages
             con.Open();
             cmd.ExecuteNonQuery();
             con.Close();
+        }
+
+        public LookupModel ObtenerNombreLookup()
+        {
+            //PK Cambio de precio
+            if (ddlCandado.SelectedValue == "1")
+            {
+                return new LookupModel()
+                {
+                    Col_Name = LookupsKey.PorcentajeMaxPK,
+                    Val_Large = monto.Text
+                };
+            }
+            //DT Descuento
+            else if (ddlCandado.SelectedValue == "2")
+            {
+                return new LookupModel()
+                {
+                    Col_Name = LookupsKey.PorcentajeMaxDT,
+                    Val_Large = descuento.Text
+                };
+            }
+            //3 Tarjeta regalo
+            else if (ddlCandado.SelectedValue == "3")
+            {
+                return new LookupModel()
+                {
+                    Col_Name = LookupsKey.Re2013021_Saldo,
+                    Val_Large = monto.Text
+                };
+            }
+
+            return null;
         }
     }
 }
